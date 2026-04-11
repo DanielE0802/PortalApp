@@ -1,0 +1,35 @@
+{
+  "name": "portal-app",
+  "version": "1.0.0",
+  "description": "User & Posts Management Portal API",
+  "private": true,
+  "scripts": {
+    "dev:db": "docker-compose up -d",
+    "dev:backend": "cd backend && npm run start:dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "prod:up": "docker-compose -f docker-compose.prod.yml up --build",
+    "prod:down": "docker-compose -f docker-compose.prod.yml down",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "migration:generate": "cd backend && npm run migration:generate",
+    "migration:run": "cd backend && npm run migration:run",
+    "migration:revert": "cd backend && npm run migration:revert",
+    "seed": "cd backend && npm run seed",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "keywords": [
+    "nestjs",
+    "nextjs",
+    "postgresql",
+    "docker",
+    "typescript"
+  ],
+  "author": "Daniel Estupiñán"
+}

@@ -1,0 +1,74 @@
+# =========================
+# GLOBAL
+# =========================
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+*.pem
+
+# =========================
+# FRONTEND (Next.js)
+# =========================
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# =========================
+# BACKEND (NestJS)
+# =========================
+backend/dist/
+backend/build/
+
+# =========================
+# TESTING
+# =========================
+coverage/
+.nyc_output/
+
+# =========================
+# PACKAGE MANAGERS
+# =========================
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# =========================
+# VERCEL / DEPLOY
+# =========================
+.vercel
+
+# =========================
+# IDEs
+# =========================
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# =========================
+# TEMP
+# =========================
+.tmp
+.temp
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# DEBUG LOGS
+# =========================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

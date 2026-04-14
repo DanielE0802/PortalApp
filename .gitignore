@@ -4,6 +4,7 @@
 node_modules/
 .env
 .env.*
+!.env.example
 *.log
 .DS_Store
 *.pem
@@ -50,7 +51,6 @@ coverage/
 # =========================
 .idea/
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json

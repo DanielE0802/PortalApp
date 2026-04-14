@@ -29,7 +29,7 @@ export class ReqResLoginAdapter {
     const loginConfig = this.configService.get<{
       baseUrl: string;
       resourcePath: string;
-    }>('reqres.userList');
+    }>('reqres.login');
     this.baseUrl = loginConfig?.baseUrl ?? '';
     this.resourcePath = loginConfig?.resourcePath ?? '/login';
   }

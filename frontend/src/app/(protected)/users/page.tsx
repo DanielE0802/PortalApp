@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { useGetReqresUsersQuery, useImportUserMutation } from '@/store/api/usersApi';
 import { UserCard } from '@/components/users/UserCard';
@@ -14,9 +14,16 @@ export default function UsersPage() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [importingUserId, setImportingUserId] = useState<number | null>(null);
+  const [isPageTransition, setIsPageTransition] = useState(false);
   const { data, isLoading, isFetching } = useGetReqresUsersQuery(page);
   const [importUser, { isLoading: importing }] = useImportUserMutation();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (!isFetching && isPageTransition) {
+      setIsPageTransition(false);
+    }
+  }, [isFetching, isPageTransition]);
 
   const filteredUsers = useMemo(() => {
     if (!data?.data) return [];
@@ -51,6 +58,12 @@ export default function UsersPage() {
     }
   };
 
+  const handlePageChange = (nextPage: number) => {
+    if (nextPage === page) return;
+    setIsPageTransition(true);
+    setPage(nextPage);
+  };
+
   return (
     <div className="container max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
       <div className="space-y-2">
@@ -67,7 +80,7 @@ export default function UsersPage() {
         className="max-w-md"
       />
 
-      {isLoading || isFetching ? (
+      {isLoading || (isFetching && isPageTransition) ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <UserCardSkeleton key={i} />
@@ -97,7 +110,7 @@ export default function UsersPage() {
             <Pagination
               currentPage={page}
               totalPages={data.total_pages}
-              onPageChange={setPage}
+              onPageChange={handlePageChange}
             />
           )}
         </>

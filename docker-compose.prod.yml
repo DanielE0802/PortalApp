@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_prod_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -24,10 +24,12 @@ services:
       dockerfile: Dockerfile
     container_name: portal-backend-prod
     environment:
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV}
       PORT: 3001
       DATABASE_URL: ${DATABASE_URL}
       CORS_ORIGINS: ${CORS_ORIGINS}
+      REQRES_BASE_URL: ${REQRES_BASE_URL}
+      REQRES_API_KEY: ${REQRES_API_KEY}
     ports:
       - '3001:3001'
     depends_on:
@@ -41,7 +43,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: http://localhost:3001/api/v1
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_API_VERSION: ${NEXT_PUBLIC_API_VERSION}
     container_name: portal-frontend-prod
     environment:
       NODE_ENV: production

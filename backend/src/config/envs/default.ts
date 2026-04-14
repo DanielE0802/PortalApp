@@ -1,3 +1,14 @@
+const parseBoolean = (
+  value: string | undefined,
+  fallback: boolean,
+): boolean => {
+  if (value === undefined) {
+    return fallback;
+  }
+
+  return value.toLowerCase() === 'true';
+};
+
 export const config = {
   general: {
     port: process.env.PORT,
@@ -17,5 +28,12 @@ export const config = {
       baseUrl: process.env.REQRES_BASE_URL,
       resourcePath: '/users',
     },
+  },
+  swagger: {
+    enable: parseBoolean(
+      process.env.SWAGGER_ENABLED,
+      process.env.NODE_ENV !== 'production',
+    ),
+    path: process.env.SWAGGER_PATH || 'docs',
   },
 };

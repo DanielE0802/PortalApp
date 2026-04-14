@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/useToast';
 export default function UsersPage() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [importingUserId, setImportingUserId] = useState<number | null>(null);
   const { data, isLoading, isFetching } = useGetReqresUsersQuery(page);
   const [importUser, { isLoading: importing }] = useImportUserMutation();
   const { toast } = useToast();
@@ -32,6 +33,8 @@ export default function UsersPage() {
   }, [data, searchQuery]);
 
   const handleImport = async (userId: number) => {
+    setImportingUserId(userId);
+
     try {
       const result = await importUser(userId).unwrap();
       const user = result.data;
@@ -43,6 +46,8 @@ export default function UsersPage() {
       }
     } catch {
       toast('Error al importar usuario', { variant: 'error' });
+    } finally {
+      setImportingUserId(null);
     }
   };
 
@@ -83,7 +88,7 @@ export default function UsersPage() {
                 key={user.id}
                 user={user}
                 onImport={handleImport}
-                importing={importing}
+                importing={importing && importingUserId === user.id}
               />
             ))}
           </div>

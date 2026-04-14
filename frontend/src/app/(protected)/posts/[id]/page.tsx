@@ -35,7 +35,7 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
 
   if (isLoading) {
     return (
-      <div className="container max-w-4xl mx-auto p-6 space-y-6">
+      <div className="container max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
         <div className="h-5 w-40 bg-muted animate-pulse rounded" />
         <PostCardSkeleton />
       </div>
@@ -58,7 +58,7 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
     : null;
 
   return (
-    <div className="container max-w-4xl mx-auto p-6 space-y-6">
+    <div className="container max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <button
           onClick={() => router.push('/posts')}
@@ -75,17 +75,17 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
         Volver
       </Button>
 
-      <Card className="p-8 space-y-5">
-        <div className="flex items-start justify-between gap-4">
-          <h1 className="text-2xl font-medium text-foreground leading-snug flex-1">
+      <Card className="p-5 sm:p-8 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+          <h1 className="text-2xl font-medium text-foreground leading-snug">
             {post.title}
           </h1>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 sm:shrink-0">
             <Button
               variant="outline"
               size="sm"
               onClick={() => router.push(`/posts/${id}/edit`)}
-              className="gap-1.5"
+              className="gap-1.5 flex-1 sm:flex-none"
             >
               <Pencil className="size-4" />
               Editar
@@ -94,7 +94,7 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
               variant="outline"
               size="sm"
               onClick={() => setShowDelete(true)}
-              className="gap-1.5 border-red-500/30 text-red-400 hover:bg-red-500/10 hover:border-red-500/50"
+              className="gap-1.5 flex-1 sm:flex-none border-red-500/30 text-red-400 hover:bg-red-500/10 hover:border-red-500/50"
             >
               <Trash2 className="size-4" />
               Eliminar

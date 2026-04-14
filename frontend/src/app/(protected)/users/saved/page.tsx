@@ -37,7 +37,7 @@ export default function SavedUsersPage() {
 
   if (isLoading) {
     return (
-      <div className="container max-w-7xl mx-auto p-6 space-y-6">
+      <div className="container max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-foreground">Usuarios Guardados</h1>
           <p className="text-muted-foreground">Cargando...</p>
@@ -53,7 +53,7 @@ export default function SavedUsersPage() {
 
   if (savedUsers.length === 0) {
     return (
-      <div className="container max-w-7xl mx-auto p-6">
+      <div className="container max-w-7xl mx-auto p-4 sm:p-6">
         <div className="space-y-2 mb-6">
           <h1 className="text-3xl font-bold text-foreground">Usuarios Guardados</h1>
           <p className="text-muted-foreground">0 usuarios importados</p>
@@ -71,7 +71,7 @@ export default function SavedUsersPage() {
   }
 
   return (
-    <div className="container max-w-7xl mx-auto p-6 space-y-6">
+    <div className="container max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">Usuarios Guardados</h1>
         <p className="text-muted-foreground">
@@ -87,16 +87,16 @@ export default function SavedUsersPage() {
                 <th className="text-left p-4 text-sm font-medium text-muted-foreground">
                   Usuario
                 </th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                <th className="hidden sm:table-cell text-left p-4 text-sm font-medium text-muted-foreground">
                   Email
                 </th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                <th className="hidden md:table-cell text-left p-4 text-sm font-medium text-muted-foreground">
                   ReqRes ID
                 </th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                <th className="hidden md:table-cell text-left p-4 text-sm font-medium text-muted-foreground">
                   Fecha import
                 </th>
-                <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                <th className="hidden sm:table-cell text-left p-4 text-sm font-medium text-muted-foreground">
                   Posts
                 </th>
                 <th className="text-right p-4 text-sm font-medium text-muted-foreground">
@@ -114,21 +114,21 @@ export default function SavedUsersPage() {
                         name={`${user.firstName} ${user.lastName}`}
                         size="sm"
                       />
-                      <span className="font-medium text-foreground">
+                      <span className="font-medium text-foreground text-sm">
                         {user.firstName} {user.lastName}
                       </span>
                     </div>
                   </td>
-                  <td className="p-4 text-sm text-muted-foreground">
+                  <td className="hidden sm:table-cell p-4 text-sm text-muted-foreground">
                     {user.email}
                   </td>
-                  <td className="p-4 text-sm text-muted-foreground">
+                  <td className="hidden md:table-cell p-4 text-sm text-muted-foreground">
                     #{user.reqresId}
                   </td>
-                  <td className="p-4 text-sm text-muted-foreground">
+                  <td className="hidden md:table-cell p-4 text-sm text-muted-foreground">
                     {formatShortDate(user.createdAt)}
                   </td>
-                  <td className="p-4 text-sm text-muted-foreground">
+                  <td className="hidden sm:table-cell p-4 text-sm text-muted-foreground">
                     {user.postCount || 0}
                   </td>
                   <td className="p-4">

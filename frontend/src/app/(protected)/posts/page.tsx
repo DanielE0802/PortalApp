@@ -70,7 +70,7 @@ export default function PostsPage() {
 
   if (isLoading && posts.length === 0) {
     return (
-      <div className="container max-w-7xl mx-auto p-6 space-y-6">
+      <div className="container max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
         <div className="h-10 w-48 bg-muted animate-pulse rounded" />
         <div className="flex gap-4">
           <div className="h-9 flex-1 bg-muted animate-pulse rounded" />
@@ -86,33 +86,33 @@ export default function PostsPage() {
   }
 
   return (
-    <div className="container max-w-7xl mx-auto p-6 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="container max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="space-y-1">
           <h1 className="text-3xl font-bold text-foreground">Posts</h1>
           <p className="text-muted-foreground">
             {total} {total === 1 ? 'post' : 'posts'} en total
           </p>
         </div>
-        
-        <Button onClick={() => router.push('/posts/new')} className="gap-2">
+
+        <Button onClick={() => router.push('/posts/new')} className="gap-2 sm:shrink-0">
           <Plus className="size-4" />
           Crear Post
         </Button>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-3">
         <SearchInput
           value={searchQuery}
           onChange={setSearchQuery}
           placeholder="Buscar por título..."
           className="flex-1"
         />
-        
+
         <select
           value={orderBy}
           onChange={(e) => setOrderBy(e.target.value as 'newest' | 'oldest' | 'title')}
-          className="h-9 cursor-pointer px-3 rounded-lg border border-input bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+          className="h-9 cursor-pointer px-3 rounded-lg border border-input bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring sm:w-auto"
         >
           {ORDER_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>

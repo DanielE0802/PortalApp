@@ -48,7 +48,7 @@ export default function UserDetailPage() {
 
   if (loadingUser) {
     return (
-      <div className="container max-w-4xl mx-auto p-6 space-y-6">
+      <div className="container max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
         <div className="h-9 w-24 bg-muted animate-pulse rounded" />
         <div className="h-48 bg-muted animate-pulse rounded-xl" />
         <div className="space-y-2">
@@ -68,7 +68,7 @@ export default function UserDetailPage() {
   }
 
   return (
-    <div className="container max-w-4xl mx-auto p-6 space-y-6">
+    <div className="container max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
       <Button
         variant="ghost"
         onClick={() => router.push('/users')}

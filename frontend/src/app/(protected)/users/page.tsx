@@ -47,7 +47,7 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="container max-w-7xl mx-auto p-6 space-y-6">
+    <div className="container max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-foreground">Usuarios</h1>
         <p className="text-muted-foreground">

@@ -6,10 +6,13 @@ provider:
   region: us-east-1
   stage: ${opt:stage, 'dev'}
   environment:
+    APP_STAGE: ${self:provider.stage}
     DATABASE_URL: ${env:DATABASE_URL}
     REQRES_BASE_URL: https://reqres.in/api
     REQRES_API_KEY: ${env:REQRES_API_KEY}
     CORS_ORIGINS: ${env:CORS_ORIGINS}
+    SWAGGER_ENABLED: ${env:SWAGGER_ENABLED, 'false'}
+    SWAGGER_PATH: ${env:SWAGGER_PATH, 'docs'}
     NODE_ENV: production
 
 functions:

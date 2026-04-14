@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -20,7 +21,8 @@ async function bootstrap(): Promise<void> {
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   });
 
-  app.setGlobalPrefix('api/v1');
+  const globalPrefix = 'api/v1';
+  app.setGlobalPrefix(globalPrefix);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -36,21 +38,40 @@ async function bootstrap(): Promise<void> {
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalInterceptors(new TransformResponseInterceptor());
 
-  if (process.env.NODE_ENV !== 'production') {
-    const config = new DocumentBuilder()
+  const configService = app.get(ConfigService);
+  const swaggerEnabled = configService.get<boolean>('swagger.enable') ?? false;
+  const swaggerPath = configService.get<string>('swagger.path') ?? 'docs';
+  const normalizedSwaggerPath = swaggerPath
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/^api\/v1\//, '');
+  const swaggerMountPath = `${globalPrefix}/${normalizedSwaggerPath}`;
+
+  if (swaggerEnabled) {
+    const appStage = process.env.APP_STAGE;
+    const configBuilder = new DocumentBuilder()
       .setTitle('PortalApp API')
       .setDescription('User & Posts Management Portal API')
       .setVersion('1.0')
-      .addBearerAuth()
-      .build();
+      .addBearerAuth();
+
+    if (appStage) {
+      configBuilder.addServer(`/${appStage}`);
+    }
+
+    const config = configBuilder.build();
 
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api/docs', app, document);
+    SwaggerModule.setup(swaggerMountPath, app, document);
   }
 
   const port = process.env.PORT ?? 3001;
   await app.listen(port);
-  logger.log(`docs: http://localhost:${port}/api/docs`);
+
+  if (swaggerEnabled) {
+    logger.log(`docs: http://localhost:${port}/${swaggerMountPath}`);
+  } else {
+    logger.log('docs: disabled');
+  }
 }
 
 void bootstrap();

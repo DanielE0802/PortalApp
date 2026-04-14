@@ -5,10 +5,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './common/filters';
-import {
-  LoggingInterceptor,
-  TransformResponseInterceptor,
-} from './common/interceptors';
+import { TransformResponseInterceptor } from './common/interceptors';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -37,10 +34,7 @@ async function bootstrap(): Promise<void> {
   );
 
   app.useGlobalFilters(new GlobalExceptionFilter());
-  app.useGlobalInterceptors(
-    new LoggingInterceptor(),
-    new TransformResponseInterceptor(),
-  );
+  app.useGlobalInterceptors(new TransformResponseInterceptor());
 
   if (process.env.NODE_ENV !== 'production') {
     const config = new DocumentBuilder()

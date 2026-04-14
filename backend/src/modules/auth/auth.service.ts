@@ -15,10 +15,7 @@ export class AuthService {
   constructor(private readonly reqResLoginAdapter: ReqResLoginAdapter) {}
 
   /**
-   * Authenticates a user against the ReqRes external service.
-   * Error mapping (400/401 → UnauthorizedException) is handled by the adapter.
-   * The service catches UnauthorizedException to add contextual logging,
-   * and wraps any unexpected error as UnauthorizedException to avoid leaking internals.
+   * Authenticates a user with ReqRes external service.
    */
   async login(dto: LoginDto): Promise<{ token: string }> {
     try {

@@ -1,4 +1,4 @@
-service: reqdash-backend
+service: portalapp-backend
 
 provider:
   name: aws

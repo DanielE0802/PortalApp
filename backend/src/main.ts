@@ -38,7 +38,7 @@ async function bootstrap(): Promise<void> {
 
   if (process.env.NODE_ENV !== 'production') {
     const config = new DocumentBuilder()
-      .setTitle('ReqDash API')
+      .setTitle('PortalApp API')
       .setDescription('User & Posts Management Portal API')
       .setVersion('1.0')
       .addBearerAuth()

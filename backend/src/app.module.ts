@@ -1,30 +1,23 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
-import { join } from 'path';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { AppConfigModule } from './config/config.module';
+import { RateLimiterModule } from './config/rate-limiter.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: join(__dirname, '../../.env'),
-    }),
-
-    ThrottlerModule.forRoot([{ ttl: 60_000, limit: 100 }]),
-    AuthModule,
-  ],
+  imports: [AppConfigModule, DatabaseModule, RateLimiterModule, AuthModule],
   providers: [
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
   ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}

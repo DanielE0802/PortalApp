@@ -6,7 +6,6 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
 import { AppRequest } from '../interfaces';
 import { ApiErrorResponse } from '../interfaces';
 
@@ -56,7 +55,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       meta: {
         timestamp: new Date().toISOString(),
         path: request.url,
-        requestId: request.requestId ?? uuidv4(),
+        requestId: request.requestId,
       },
     };
 

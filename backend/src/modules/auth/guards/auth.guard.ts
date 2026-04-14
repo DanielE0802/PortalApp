@@ -3,6 +3,7 @@ import {
   ExecutionContext,
   Injectable,
   UnauthorizedException,
+  Logger,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../../../common/decorators/public.decorator';
@@ -11,7 +12,7 @@ import { AppRequest } from '../../../common/interfaces';
 /**
  * Global authentication guard.
  *
- * Registered as APP_GUARD in AppModule → protects ALL endpoints.
+ * Registered as APP_GUARD in AppModule.
  * Endpoints with @Public() are automatically excluded.
  * Extracts the Bearer token from the Authorization header and attaches it to the request.
  */

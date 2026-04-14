@@ -33,6 +33,14 @@ export interface PaginatedMeta extends ApiMeta {
 }
 
 /**
+ * Generic paginated result returned by repository methods.
+ */
+export interface PaginatedResult<T> {
+  data: T[];
+  meta: PaginatedMeta;
+}
+
+/**
  * Standard error response structure.
  *
  */
